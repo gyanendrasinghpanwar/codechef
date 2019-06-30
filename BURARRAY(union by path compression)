@@ -1,0 +1,74 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+#define fr(i,n) for(ll i=0;i<n;i++)
+#define vl vector<ll>
+#define vll vector<ll,ll>
+#define vpl vector< pair<ll,ll> >
+#define pb push_back
+#define ft first
+#define sd second
+#define bn begin()
+#define ed end()
+// Author gyanendra singh panwar :
+// https://www.codechef.com/problems/BURARRAY
+map< ll,ll > mapp;
+
+ll find(ll i) 
+{ 
+    // find root and make root as parent of i (path compression) 
+    if(!mapp.count(i))
+    mapp[i]=i;
+    if (mapp[i] != i) 
+    mapp[i] = find(mapp[i]); 
+  
+    return mapp[i]; 
+} 
+
+int main()
+{
+	ios_base::sync_with_stdio(NULL);
+    cin.tie(NULL);
+    
+    int t;
+    cin>>t;
+    while(t--){
+    // 
+    mapp.clear();
+    ll n;int q;
+    ll l,r,x,s=0;
+    cin>>n>>q;
+    
+    while(q--)
+    {
+    	int type;
+    	cin>>type;
+    	if(type == 1)
+    	{
+    		cin>>x;
+    		x=x+s;
+    		mapp[x] = x-1;
+		}
+		if(type == 2)
+		{
+			cin>>l>>r;
+			l = l + s ;
+			r = r + s ;
+			
+			ll  p = find(r) ;
+			
+			if(p<l)
+			cout<<"0\n";
+			else
+			{
+				cout<<p<<"\n";
+				s = (s+p)%n ;
+			}
+			
+		}
+	}
+	//
+	}
+    
+}
+
